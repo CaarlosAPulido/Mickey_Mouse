@@ -30,6 +30,9 @@ function gotResults(error, results) {
 
 function draw() {
   background(100, 149, 237);
+  if (video.elt.readyState >= 2) {
+    image(video, 0, 0, width, height);
+  }
   
   if (faces.length > 0) {
     let nose = faces[0].keypoints[1]; // nose landmark
@@ -54,8 +57,8 @@ class Mockey {
   circle(this.x -5*scale, this.y -188.5*scale, 200*scale);
   circle(this.x -101*scale, this.y -311.5*scale, 134*scale);
   circle(this.x +89*scale, this.y -311.5*scale, 134*scale);
-  rect(this.x -52*scale, this.y +62.5*scale, 100*scale, 110*scale);
-   rect(this.x -34*scale, this.y +37.5*scale, 65*scale, 50*scale);
+  rect(this.x -52*scale, this.y -62.5*scale, 100*scale, 110*scale);
+   rect(this.x -34*scale, this.y -87.5*scale, 65*scale, 50*scale);
   fill('rgb(165,22,22)');
   rect(this.x -67*scale, this.y +32.5*scale, 130*scale, 100*scale, 10);
   fill('rgb(255,255,255)');
