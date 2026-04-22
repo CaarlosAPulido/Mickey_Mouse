@@ -2,6 +2,7 @@ let Mickey
 let video;
 let faceMesh;
 let faces = [];
+let cameraAvailable = false;
 
 function setup() {
   createCanvas(640, 480);
