@@ -29,7 +29,11 @@ function gotResults(error, results) {
 
 
 function draw() {
-  image(video, 0, 0, width, height);
+  if (video.elt.readyState >= 2) {
+    image(video, 0, 0, width, height);
+  } else {
+    background(100, 149, 237);
+  }
   
   if (faces.length > 0) {
     let nose = faces[0].keypoints[1]; // nose landmark
@@ -49,7 +53,6 @@ class Mockey {
  
   show() {
     let scale = this.size / 100;
-    //Cuerpo
   noStroke();
   fill("rgb(0,0,0)");
   circle(this.x -5*scale, this.y -188.5*scale, 200*scale);
@@ -57,14 +60,11 @@ class Mockey {
   circle(this.x +89*scale, this.y -311.5*scale, 134*scale);
   rect(this.x -52*scale, this.y +62.5*scale, 100*scale, 110*scale);
    rect(this.x -34*scale, this.y +37.5*scale, 65*scale, 50*scale);
-
-  // pantaloncitos
   fill('rgb(165,22,22)');
   rect(this.x -67*scale, this.y +32.5*scale, 130*scale, 100*scale, 10);
   fill('rgb(255,255,255)');
   ellipse(this.x -25*scale, this.y +77.5*scale, 20*scale, 20*scale);
   ellipse(this.x +18*scale, this.y +77.5*scale, 20*scale, 20*scale);
-
   noStroke();
 fill(' rgb(247,182,122)');    
   ellipse(this.x -5*scale, this.y -116.5*scale, 167*scale, 89*scale);
@@ -76,17 +76,12 @@ fill(' rgb(247,182,122)');
     ellipse(this.x -40*scale, this.y -192.5*scale, 30*scale, 80*scale);
     ellipse(this.x +33*scale, this.y -192.5*scale, 30*scale, 80*scale);
     arc(this.x -10*scale, this.y -98.5*scale, 40*scale, 40*scale, 1, PI + QUARTER_PI, CHORD);
-
-    
-  //Brazos
   stroke('rgb(0,0,0)');
   strokeWeight(35*scale);
 line(this.x -90*scale, this.y -28.5*scale, this.x -53*scale, this.y -44.5*scale);
     line(this.x -90*scale, this.y -28.5*scale, this.x -100*scale, this.y +77.5*scale);
   line(this.x +89*scale, this.y -28.5*scale, this.x +47*scale, this.y -44.5*scale);
     line(this.x +90*scale, this.y -28.5*scale, this.x +100*scale, this.y +77.5*scale);
-
-   //Manos
   noStroke();
  fill('rgb(218,214,214)');
   ellipse(this.x -100*scale, this.y +77.5*scale, 70*scale, 40*scale);
@@ -96,17 +91,12 @@ line(this.x -90*scale, this.y -28.5*scale, this.x -53*scale, this.y -44.5*scale)
   ellipse(this.x +100*scale, this.y +77.5*scale, 70*scale, 40*scale);
    fill('rgb(255,255,255)');
   ellipse(this.x +100*scale, this.y +100.5*scale, 90*scale, 50*scale);
-  
-  //Piernas
  fill('rgb(0,0,0)');
  rect(this.x -59*scale, this.y +117.5*scale,39*scale, 200*scale, 0);
       rect(this.x +14*scale, this.y +117.5*scale,39*scale, 200*scale, 0);
-
    fill('rgb(165,22,22)');
   rect(this.x -67*scale, this.y +117.5*scale,56*scale, 50*scale, 0);
     rect(this.x +7*scale, this.y +117.5*scale,56*scale, 50*scale, 0);
-
-    //Pies
   noStroke();
  fill('#FFC107');
   ellipse(this.x -48*scale, this.y +307.5*scale, 70*scale, 40*scale);
