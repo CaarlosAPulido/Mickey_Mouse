@@ -1,14 +1,70 @@
-let Mickey
+let Mickey;
+let video;
+let faceapi;
+let detections;
 
 function setup() {
   createCanvas(640, 775);
-  Mickey = new Mockey (width /2 , height / 2, 100);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+  faceapi = ml5.faceApi(video, modelReady);
+  Mickey = new Mockey(width / 2, height / 2, 100);
 }
 
+function modelReady() {
+  console.log('Model ready!');
+  faceapi.detect(gotResults);
+}
+
+function gotResults(err, result) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  detections = result;
+  faceapi.detect(gotResults);
+}
 
 function draw() {
   background(100, 149, 237);
-Mickey.show();
+  if (detections && detections.length > 0) {
+    let face = detections[0];
+    let x = face.alignedRect._box._x + face.alignedRect._box._width / 2;
+    let y = face.alignedRect._box._y + face.alignedRect._box._height / 2;
+    Mickey.x = map(x, 0, video.width, 0, width);
+    Mickey.y = map(y, 0, video.height, 0, height);
+  }
+    faceapi = ml5.faceApi(video, modelReady);
+  Mickey = new Mockey(width / 2, height / 2, 100);
+}
+
+function modelReady() {
+  console.log('Model ready!');
+  faceapi.detect(gotResults);
+}
+
+function gotResults(err, result) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  detections = result;
+  faceapi.detect(gotResults);
+}
+
+function draw() {
+  background(100, 149, 237);
+  if (detections && detections.length > 0) {
+    let face = detections[0];
+    let x = face.alignedRect._box._x + face.alignedRect._box._width / 2;
+    let y = face.alignedRect._box._y + face.alignedRect._box._height / 2;
+    Mickey.x = map(x, 0, video.width, 0, width);
+    push();
+    translate(this.x - 315, this.y - 400);
+    Mickey.y = map(y, 0, video.height, 0, height);
+  }
+  Mickey.show();
 }
 
 class Mockey {
@@ -19,6 +75,8 @@ class Mockey {
   }
  
   show() {
+    push();
+    translate(this.x - 315, this.y - 400);
     //Cuerpo
   noStroke();
   fill("rgb(0,0,0)");
