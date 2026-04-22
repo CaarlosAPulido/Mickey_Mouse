@@ -29,11 +29,7 @@ function gotResults(error, results) {
 
 
 function draw() {
-  if (video.elt.readyState >= 2) {
-    image(video, 0, 0, width, height);
-  } else {
-    background(100, 149, 237);
-  }
+  background(100, 149, 237);
   
   if (faces.length > 0) {
     let nose = faces[0].keypoints[1]; // nose landmark
